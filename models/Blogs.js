@@ -7,7 +7,11 @@ const blogSchema = new Schema({
     dateNow :{
         type: Date,
         default: Date.now,
-    },    
+    },
+    user: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' 
+    },
 });
 
 const Blog = mongoose.model('Blog', blogSchema);

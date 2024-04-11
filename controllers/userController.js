@@ -2,8 +2,8 @@ const User = require('../models/Users');
 const Users = require('../models/Users');
 
 const bcrypt = require('bcrypt');
-
-
+const jwt = require('jsonwebtoken');
+const secretKey = process.env.SECRET_KEY;
 
 exports.getAllUsers = async (req, res) => {
     const users = await Users.find({});
@@ -34,4 +34,38 @@ exports.updateUser = async (req, res) => {
         name: upUser.name,
         mail: upUser.mail
     })
+};
+
+exports.loginUser = async (req, res) => {
+    try {
+        // Kullanıcıyı e-posta adresine göre bul
+        const user = await User.findOne({ mail: req.body.mail });
+        if (!user) {
+            return res.status(401).json({ message: 'Kullanıcı Bulunamadı!' });
+        }
+
+        // Şifreyi karşılaştır
+        const isMatch = await bcrypt.compare(req.body.password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Lütfen Bilgilerinizi Kontrol ediniz.' });
+        }
+
+        // JWT oluştur
+        const token = jwt.sign(
+            {
+                mail: user.mail,
+                userId: user._id
+            },
+            secretKey,
+            { expiresIn: '1h' }
+        );
+        
+
+        res.status(200).json({
+            message: 'Giriş Başarılı!',
+            token: token
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };

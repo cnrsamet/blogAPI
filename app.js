@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 var methodOverride = require('method-override');
+require('dotenv').config();
 
 const path = require('path');
 

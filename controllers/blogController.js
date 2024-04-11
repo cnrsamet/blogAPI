@@ -1,4 +1,5 @@
 const Blog = require('../models/Blogs');
+const user = require('../middleware/authMiddleware');
 
 exports.getAllBlogs = async (req, res) => {
     const blogs = await Blog.find({});
@@ -6,9 +7,18 @@ exports.getAllBlogs = async (req, res) => {
   };
 
 exports.createBlog = async (req, res) => {
-    const post = await Blog.create(req.body);
-    res.json(post);
-    //res.redirect('/api/blogs');
+    const userId = req.userData.userId;
+    const newPost = {
+        title : req.body.title,
+        description: req.body.description,
+        user: userId,
+    };
+    try{
+        const post = await Blog.create(newPost);
+        res.json(post);
+    } catch(error){
+        res.status(500).json({error: error.message });
+    }
 };
 
 
