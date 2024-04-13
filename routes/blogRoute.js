@@ -8,7 +8,7 @@ const router = express.Router();
 router.route('/').get(blogController.getAllBlogs);
 router.route('/create').post(auth, blogController.createBlog);
 router.route('/:id').get(blogController.getBlog);
-router.route('/:id').put(blogController.updateBlog);
+router.route('/:id').put(auth, blogController.updateBlog);
 router.route('/:id').delete(blogController.deleteBlog);
 
 module.exports = router;
