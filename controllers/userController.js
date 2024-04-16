@@ -1,9 +1,11 @@
 const User = require('../models/Users');
 const Users = require('../models/Users');
+const TokenBlacklist = require('../models/TokenBlackList');
+
 
 const bcrypt = require('bcrypt');
 
-const invalidTokens = {};
+const tokenBlacklist = new Set();
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY;
 
@@ -72,16 +74,18 @@ exports.loginUser = async (req, res) => {
     }
 };
 
-/*
+
 exports.logoutUser = async (req, res) => {
     try {
+        // Kullanıcının token'ını al
         const token = req.headers.authorization.split(" ")[1];
-        const expiration = new Date();
-        expiration.setHours(expiration.getHours() + 1); // Token'ın süresi dolana kadar geçersiz sayılır
-        invalidTokens[token] = expiration;
-        res.status(200).json({ message: "Başarıyla çıkış yapıldı." });
+
+        // Yeni bir karaliste kaydı oluştur
+        const blacklistedToken = new TokenBlacklist({ token });
+        await blacklistedToken.save();
+
+        res.status(200).json({ message: 'Çıkış Başarılı!' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
-*/
