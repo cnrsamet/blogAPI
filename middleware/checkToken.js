@@ -27,5 +27,3 @@ const checkBlacklist = async (req, res, next) => {
 };
 
 module.exports = checkBlacklist;
-
-module.exports = checkBlacklist;

@@ -8,8 +8,6 @@ const path = require('path');
 const blogRoute = require('./routes/blogRoute');
 const userRoute = require('./routes/userRoute');
 
-const blogController = require('./controllers/blogController');
-const userController = require('./controllers/userController');
 const Blog = require('./models/Blogs');
 const app = express();
 
