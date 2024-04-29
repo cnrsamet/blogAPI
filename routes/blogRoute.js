@@ -15,6 +15,8 @@ router.route('/:id').delete(checkToken, blogController.deleteBlog);
 
 router.route('/:id/comment').post(checkToken, commentController.sendComment);
 router.route('/:id/comment').get(checkToken, commentController.getComments);
+router.route('/:id/comment/:commentId').delete(checkToken, commentController.deleteComment);
+
 
 
 module.exports = router;
