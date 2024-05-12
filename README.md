@@ -3,11 +3,11 @@
 Blog API kullanıcıların üyelik oluşturduğu, oluştuğu üyelikle blog yazıları yükleyip silebildikleri, güncelleyebildikleri ayrıca diğer kullanıcıların blog yazılarına yorum yapabildiği bir Node.js projesidir.
 
 Neler Kullandım/Öğrendim?
--Postman
--Node.js
--express.js
--MongoDB (Tablolar arası bağlantılar ve kullanımları)
--JWT Token
+- Postman
+- Node.js
+- express.js
+- MongoDB (Tablolar arası bağlantılar ve kullanımları)
+- JWT Token
 
 
 
